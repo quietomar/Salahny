@@ -4,89 +4,191 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>صلحني | لوحة الإدارة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f5f7;--card:#fff;--tx:#14181f;--mut:#6a7280;--bd:#e4e7ec;--pri:#e8590c}
+:root{--bg:#f4f5f7;--card:#fff;--tx:#14181f;--mut:#6a7280;--bd:#e6e8ec;--pri:#e8590c;--ink:#14181f;--ok:#16a34a;--wn:#d97706;--bad:#dc2626;--inf:#2563eb}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",Tahoma,Arial,sans-serif;font-size:14px;line-height:1.6}
-.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
-aside{background:#14181f;color:#c9cfd9;padding:18px 12px}
-.logo{font-size:22px;font-weight:800;color:#ff7a2e;padding:0 8px 16px}
-aside button{display:flex;gap:10px;width:100%;border:0;background:none;color:inherit;font:inherit;padding:10px 12px;border-radius:10px;cursor:pointer;margin-bottom:2px;text-align:start}
-aside button.on{background:rgba(255,122,46,.18);color:#fff}
-aside b{margin-inline-start:auto;background:var(--pri);color:#fff;border-radius:99px;padding:0 8px;font-size:12px}
-main{padding:20px;min-width:0}
-h1{font-size:22px;margin:0 0 16px}h3{margin:0 0 10px;font-size:15px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:14px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
-.kpi{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px}.kpi small{color:var(--mut)}.kpi b{display:block;font-size:24px}
-.tw{overflow-x:auto}table{width:100%;border-collapse:collapse}th{color:var(--mut);font-size:12px}th,td{padding:10px 8px;border-bottom:1px solid var(--bd);text-align:start;white-space:nowrap}
-tr.cl:hover{background:var(--bg);cursor:pointer}
-.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;background:color-mix(in srgb,var(--c) 15%,#fff);color:var(--c)}
-.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.chip{border:1px solid var(--bd);background:#fff;padding:5px 12px;border-radius:99px;cursor:pointer;font:inherit;font-size:13px}.chip.on{background:var(--pri);color:#fff;border-color:var(--pri)}
-input{padding:9px 12px;border:1px solid var(--bd);border-radius:10px;font:inherit;width:100%;margin-bottom:10px}
-.btn{border:0;background:var(--pri);color:#fff;padding:9px 16px;border-radius:10px;font:inherit;font-weight:700;cursor:pointer}.btn.ok{background:#16a34a}.btn.bad{background:#dc2626}.btn.gh{background:var(--bg);color:var(--tx);border:1px solid var(--bd)}
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px;z-index:9}
-.md{background:#fff;border-radius:16px;padding:20px;max-width:540px;width:100%;max-height:90vh;overflow:auto}
-.kv{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--bd)}.kv span:first-child{color:var(--mut)}
-.acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-.lg{max-width:360px;margin:12vh auto}
-@media(max-width:800px){.app{grid-template-columns:1fr}aside{display:flex;overflow-x:auto;gap:4px;padding:8px}aside button{white-space:nowrap;width:auto}}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Cairo,"Segoe UI",Tahoma,sans-serif;font-size:14px;line-height:1.6}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+aside{background:var(--ink);color:#c9cfd9;padding:20px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px 20px;color:#fff;font-weight:800;font-size:20px}
+.brand i{width:36px;height:36px;border-radius:11px;background:var(--pri);display:grid;place-items:center;font-style:normal}
+.nav{flex:1}.nav button{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;color:inherit;font:inherit;padding:10px 12px;border-radius:10px;cursor:pointer;margin-bottom:3px;text-align:start}
+.nav button:hover{background:rgba(255,255,255,.06)}.nav button.on{background:var(--pri);color:#fff;font-weight:700}
+.nav b{margin-inline-start:auto;background:#fff;color:var(--pri);border-radius:99px;min-width:22px;text-align:center;font-size:12px}
+.me{border-top:1px solid rgba(255,255,255,.1);padding:14px 8px 0;font-size:12px;color:#8e97a6;word-break:break-all}
+.me button{margin-top:8px;width:100%;border:1px solid rgba(255,255,255,.18);background:none;color:#fff;border-radius:9px;padding:7px;font:inherit;cursor:pointer}
+.top{background:#fff;border-bottom:1px solid var(--bd);padding:14px 26px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:5}
+.top h2{margin:0;font-size:20px}.tools{display:flex;gap:10px;align-items:center}
+main{padding:24px 26px;min-width:0}
+.srch{width:260px}
+input,textarea,select{padding:9px 12px;border:1px solid var(--bd);border-radius:10px;font:inherit;background:#fff;color:var(--tx)}
+textarea{width:100%;min-height:80px;margin-top:10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:16px}
+.card h3{margin:0 0 12px;font-size:16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;display:flex;gap:14px;align-items:center}
+.kpi .ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:20px;background:color-mix(in srgb,var(--c) 14%,#fff)}
+.kpi small{color:var(--mut);display:block}.kpi b{font-size:22px;line-height:1.2}
+.two{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse}
+th{color:var(--mut);font-weight:600;font-size:12px;background:#fafbfc}th,td{padding:12px 10px;border-bottom:1px solid var(--bd);text-align:start;white-space:nowrap}
+tr.cl:hover td{background:#fafbfc;cursor:pointer}.emp{text-align:center;color:var(--mut);padding:36px}
+.tag{display:inline-block;padding:2px 11px;border-radius:99px;font-size:12px;font-weight:700;background:color-mix(in srgb,var(--c) 13%,#fff);color:var(--c)}
+.who{display:flex;align-items:center;gap:10px}.av{width:36px;height:36px;border-radius:11px;background:#eef0f3;display:grid;place-items:center;font-weight:800;color:var(--ink)}
+.av.lg{width:64px;height:64px;font-size:26px;border-radius:18px;background:var(--pri);color:#fff;margin:0 auto 8px}.who small{display:block;color:var(--mut);font-size:12px}
+.cc{display:inline-block;background:#eef0f3;border-radius:6px;padding:0 6px;font-size:11px;font-weight:700;margin-inline-end:6px}.ph{direction:ltr;display:inline-block}
+.dc{display:inline-block;margin-inline-end:6px;padding:2px 8px;border-radius:8px;font-size:12px}.dc.y{background:#dcfce7;color:#166534}.dc.n{background:#fee2e2;color:#991b1b}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{border:1px solid var(--bd);background:#fff;padding:5px 13px;border-radius:99px;cursor:pointer;font:inherit;font-size:13px}.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}.chip i{font-style:normal;opacity:.6;margin-inline-start:4px}
+.btn{border:0;background:var(--pri);color:#fff;padding:9px 18px;border-radius:10px;font:inherit;font-weight:700;cursor:pointer}.btn:disabled{opacity:.5}
+.btn.ok{background:var(--ok)}.btn.bad{background:var(--bad)}.btn.gh{background:#fff;color:var(--tx);border:1px solid var(--bd)}
+.ov{position:fixed;inset:0;background:rgba(15,18,24,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}
+.md{background:#fff;border-radius:18px;padding:22px;max-width:1000px;width:100%;max-height:92vh;overflow:auto}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.mh h3{margin:0}.x{border:0;background:#eef0f3;border-radius:9px;width:34px;height:34px;cursor:pointer;font-size:16px}
+.pane{display:grid;grid-template-columns:320px 1fr;gap:22px}.pi{text-align:center;margin-bottom:12px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed var(--bd)}.kv span:first-child{color:var(--mut)}
+.acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.dt{font-weight:700;margin-bottom:10px}
+.doc{border:1px solid var(--bd);border-radius:14px;overflow:hidden;margin-bottom:14px}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fafbfc;border-bottom:1px solid var(--bd)}.dh a{color:var(--pri);font-weight:700;text-decoration:none}
+.doc img{display:block;width:100%;max-height:340px;object-fit:contain;background:#f1f2f4;cursor:zoom-in}.doc iframe{width:100%;height:360px;border:0}
+.doc.miss{padding:26px;text-align:center;color:var(--mut);background:#fff7f7;border-style:dashed}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:11px 20px;border-radius:12px;color:#fff;font-weight:700;z-index:50;background:var(--ink)}.toast.err{background:var(--bad)}
+.lb{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px}.card input:not([type=number]){width:100%}
+.danger{margin-top:22px;border-top:1px solid var(--bd);padding-top:12px}
+.lg{max-width:380px;margin:12vh auto;padding:28px}.lg input{width:100%;margin-bottom:12px}.lg h1{margin:0 0 4px;font-size:24px}
+.load{text-align:center;color:var(--mut);padding:80px}
+@media(max-width:900px){.app{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;overflow-x:auto;padding:10px}.brand{padding:0 8px}.nav{display:flex;gap:4px}.nav button{white-space:nowrap;width:auto}.me{display:none}.pane,.two{grid-template-columns:1fr}.srch{width:150px}main{padding:16px}.top{padding:12px 16px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="config.js"></script>
 </head>
 <body>
-<div id="root"></div><div id="ov"></div>
+<div id="root"><div class="load">جاري التحميل...</div></div><div id="ov"></div>
 <script>
 const sb=supabase.createClient(CFG.url,CFG.key);
 const $=s=>document.querySelector(s);
 const E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const m=n=>Number(n||0).toLocaleString('ar-EG')+' ج',fd=d=>new Date(d).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'});
-const ES={pending:['بانتظار المراجعة','#d97706'],approved:['موافق عليه','#16a34a'],rejected:['مرفوض','#dc2626'],suspended:['موقوف','#dc2626']};
-const OS={new:['طلب جديد','#2563eb'],accepted:['قبِل المهندس','#2563eb'],received:['تم استلام المركبة','#d97706'],quoted:['بانتظار موافقة العميل','#d97706'],paid:['تم الدفع','#16a34a'],progress:['جاري الإصلاح','#d97706'],done:['تم التسليم','#16a34a'],declined:['رفض العرض','#dc2626'],cancelled:['ملغي','#dc2626']};
+const m=n=>Number(n||0).toLocaleString('ar-EG')+' ج';
+const fd=d=>d?new Date(d).toLocaleString('ar-EG',{dateStyle:'medium',timeStyle:'short'}):'—';
+const fdd=d=>d?new Date(d).toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'}):'—';
+const ES={pending:['بانتظار المراجعة','#d97706'],approved:['معتمد','#16a34a'],rejected:['مرفوض','#dc2626'],suspended:['موقوف','#dc2626'],deleted:['محذوف','#6a7280']};
+const OS={new:['طلب جديد','#2563eb'],accepted:['قبِل المهندس','#2563eb'],received:['تم الاستلام','#d97706'],quoted:['بانتظار العميل','#d97706'],verifying:['بانتظار تأكيد الدفع','#d97706'],delivered:['بانتظار تقييم العميل','#d97706'],paid:['تم الدفع','#16a34a'],progress:['جاري الإصلاح','#d97706'],done:['تم التسليم','#16a34a'],declined:['رفض العرض','#dc2626'],cancelled:['ملغي','#dc2626']};
+const PM={bank:'تحويل بنكي',instapay:'إنستا باي',vodafone:'فودافون كاش'};
+const PS={pending:['بانتظار المراجعة','#d97706'],confirmed:['مؤكد','#16a34a'],rejected:['مرفوض','#dc2626']};
+const pm=x=>x.pay_method?`<span class="tag" style="--c:#2563eb">${PM[x.pay_method]}</span> <span class="ph">${E(x.pay_account)}</span>`:'<span style="color:var(--mut)">لم تُربط</span>';
+const rate=x=>x.rating_count?`<b style="color:#f5a623">★</b> ${Number(x.rating_avg).toFixed(1)} <span style="color:var(--mut)">(${x.rating_count})</span>`:'—';
+const starsTxt=n=>'<span style="color:#f5a623">'+'★'.repeat(n)+'</span><span style="color:#d5d9e0">'+'★'.repeat(5-n)+'</span>';
 const tag=a=>`<span class="tag" style="--c:${a[1]}">${a[0]}</span>`;
-let V='dash',F={e:'all',c:'all',o:'all'},D={E:[],C:[],O:[],W:[],rate:30},ME=null;
-function loginUI(msg){$('#root').innerHTML=`<div class="lg card"><h1>🔧 صلحني — الإدارة</h1>${msg?`<p style="color:#dc2626">${E(msg)}</p>`:''}<input id="ph" placeholder="الإيميل أو رقم الموبايل"><input id="pw" type="password" placeholder="كلمة السر"><button class="btn" style="width:100%" onclick="signin()">دخول</button></div>`}
+const phone=x=>x.phone?`${x.country?`<span class="cc">${E(x.country)}</span>`:''}<span class="ph">${E(x.phone)}</span>`:'—';
+const who=x=>`<div class="who"><div class="av">${E((x.full_name||'?').trim().charAt(0))}</div><div><b>${E(x.full_name)||'—'}</b><small>${E(x.city)||''}</small></div></div>`;
+const dots=(...p)=>p.map(([l,v])=>`<span class="dc ${v?'y':'n'}">${l} ${v?'✓':'✕'}</span>`).join('');
+const empty='<tr><td colspan="9" class="emp">لا توجد بيانات</td></tr>';
+let V='dash',F={e:'all',c:'all',o:'all',p:'all'},Q='',D={E:[],C:[],O:[],W:[],P:[],S:{},A:[],R:[],rate:30},ME=null;
+function toast(t,err){const e=document.createElement('div');e.className='toast'+(err?' err':'');e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2800)}
+function loginUI(msg){$('#root').innerHTML=`<div class="lg card"><h1>🔧 صلحني</h1><p style="color:var(--mut);margin:0 0 18px">لوحة الإدارة</p>${msg?`<p style="color:var(--bad)">${E(msg)}</p>`:''}<input id="ph" placeholder="الإيميل أو رقم الموبايل" autocomplete="username"><input id="pw" type="password" placeholder="كلمة السر" autocomplete="current-password" onkeydown="if(event.key=='Enter')signin()"><button class="btn" style="width:100%" onclick="signin()">دخول</button></div>`}
 async function signin(){const v=$('#ph').value.trim();const{error}=await sb.auth.signInWithPassword({email:v.includes('@')?v.toLowerCase():v+'@salhni.app',password:$('#pw').value});if(error)return loginUI('بيانات الدخول غلط ('+error.message+')');boot()}
-async function boot(){const{data:{session}}=await sb.auth.getSession();if(!session)return loginUI();const{data:p}=await sb.from('profiles').select('*').eq('id',session.user.id).single();if(!p||p.role!=='admin'){await sb.auth.signOut();return loginUI('هذا الحساب ليس أدمن')}ME=p;await load();render()}
-async function load(){const[e,c,o,w,s]=await Promise.all([
+async function boot(){const{data:{session}}=await sb.auth.getSession();if(!session)return loginUI();const{data:p}=await sb.from('profiles').select('*').eq('id',session.user.id).single();if(!p||p.role!=='admin'){await sb.auth.signOut();return loginUI('هذا الحساب ليس أدمن')}ME={...p,email:session.user.email};$('#root').innerHTML='<div class="load">جاري تحميل البيانات...</div>';await load();render()}
+async function load(){const[e,c,o,w,s,pp,ad,rs]=await Promise.all([
  sb.from('profiles').select('*').eq('role','engineer').order('created_at',{ascending:false}),
  sb.from('profiles').select('*, vehicles(*)').eq('role','customer').order('created_at',{ascending:false}),
  sb.from('requests').select('*, vehicles(brand,model,plate), customer:profiles!customer_id(full_name,phone), engineer:profiles!engineer_id(full_name)').order('created_at',{ascending:false}),
  sb.from('withdrawals').select('*, engineer:profiles!engineer_id(full_name)').order('created_at',{ascending:false}),
- sb.from('settings').select('*').eq('key','commission_rate').single()]);
- D={E:e.data||[],C:c.data||[],O:o.data||[],W:w.data||[],rate:s.data?+s.data.value:30}}
-const NAV=[['dash','📊','الرئيسية'],['e','🧑‍🔧','المهندسين'],['c','👤','العملاء'],['o','📋','الطلبات'],['f','💰','المالية'],['s','⚙️','الإعدادات']];
-function render(){const cnt={e:D.E.filter(x=>x.status=='pending').length,c:D.C.filter(x=>x.status=='pending').length,o:D.O.filter(x=>x.status=='new').length,f:D.W.filter(x=>x.status=='pending').length};
-$('#root').innerHTML=`<div class="app"><aside><div class="logo">🔧 صلحني</div>${NAV.map(n=>`<button class="${V==n[0]?'on':''}" onclick="V='${n[0]}';render()">${n[1]} ${n[2]}${cnt[n[0]]?`<b>${cnt[n[0]]}</b>`:''}</button>`).join('')}<button onclick="refresh()">🔄 تحديث</button><button onclick="sb.auth.signOut().then(()=>loginUI())">🚪 خروج</button></aside><main>${({dash,e:engs,c:custs,o:ords,f:fin,s:sets})[V]()}</main></div>`}
-async function refresh(){await load();render()}
-const chips=(k,map)=>`<div class="bar">${[['all','الكل'],...Object.entries(map).map(([a,b])=>[a,b[0]])].map(c=>`<button class="chip ${F[k]==c[0]?'on':''}" onclick="F['${k}']='${c[0]}';render()">${c[1]}</button>`).join('')}</div>`;
+ sb.from('settings').select('*'),
+ sb.from('payments').select('*, customer:profiles!customer_id(full_name,phone), request:requests(problem,total)').order('created_at',{ascending:false}),
+ sb.from('balance_adjustments').select('*').order('created_at',{ascending:false}),
+ sb.from('ratings').select('*')]);
+ const S={};(s.data||[]).forEach(x=>S[x.key]=x.value);D={E:e.data||[],C:c.data||[],O:o.data||[],W:w.data||[],P:pp.data||[],A:ad.data||[],R:rs.data||[],S,rate:+(S.commission_rate||30)}}
+const NAV=[['dash','📊','الرئيسية'],['e','🧑‍🔧','المهندسين'],['c','👤','العملاء'],['o','📋','الطلبات'],['p','💳','المدفوعات'],['f','💰','المالية'],['s','⚙️','الإعدادات']];
+const PAGES={dash:()=>dash(),e:()=>engs(),c:()=>custs(),o:()=>ords(),p:()=>pays(),f:()=>fin(),s:()=>sets()};
+function render(){const cnt={e:D.E.filter(x=>x.status=='pending').length,c:D.C.filter(x=>x.status=='pending'&&x.vehicles.length).length,o:D.O.filter(x=>x.status=='new').length,p:D.P.filter(x=>x.status=='pending').length,f:D.W.filter(x=>x.status=='pending').length};
+$('#root').innerHTML=`<div class="app"><aside><div class="brand"><i>🔧</i>صلحني</div><div class="nav">${NAV.map(n=>`<button class="${V==n[0]?'on':''}" onclick="V='${n[0]}';Q='';render()">${n[1]} ${n[2]}${cnt[n[0]]?`<b>${cnt[n[0]]}</b>`:''}</button>`).join('')}</div><div class="me">${E(ME.email)}<button onclick="sb.auth.signOut().then(()=>loginUI())">تسجيل خروج</button></div></aside>
+<div><header class="top"><h2>${NAV.find(n=>n[0]==V)[2]}</h2><div class="tools">${['e','c','o','p'].includes(V)?`<input class="srch" placeholder="بحث بالاسم أو الرقم..." value="${E(Q)}" oninput="Q=this.value;rerender()">`:''}<button class="btn gh" onclick="refresh()">تحديث</button></div></header><main>${PAGES[V]()}</main></div></div>`}
+const rerender=()=>{$('main').innerHTML=PAGES[V]()};
+async function refresh(){await load();render();toast('تم التحديث')}
+function chips(k,map,arr,key){return `<div class="bar">${[['all','الكل'],...Object.entries(map).map(([a,b])=>[a,b[0]])].map(c=>`<button class="chip ${F[k]==c[0]?'on':''}" onclick="F['${k}']='${c[0]}';rerender()">${c[1]}<i>${c[0]=='all'?arr.length:arr.filter(x=>x[key]==c[0]).length}</i></button>`).join('')}</div>`}
+const match=(x,...f)=>{const q=Q.trim().toLowerCase();return !q||f.some(v=>String(v??'').toLowerCase().includes(q))};
 const fee=o=>Number(o.fee||0);
-function dash(){const com=D.O.filter(o=>['paid','progress','done'].includes(o.status)).reduce((a,o)=>a+fee(o),0),owed=D.E.reduce((a,e)=>a+Number(e.balance),0);
-const pend=[...D.E.filter(x=>x.status=='pending').map(x=>`<div class="kv"><span>🧑‍🔧 ${E(x.full_name)}</span><button class="btn gh" onclick="V='e';render();openE('${x.id}')">مراجعة</button></div>`),...D.C.filter(x=>x.status=='pending'&&x.vehicles.length).map(x=>`<div class="kv"><span>👤 ${E(x.full_name)}</span><button class="btn gh" onclick="V='c';render();openC('${x.id}')">مراجعة</button></div>`)].join('')||'<span style="color:var(--mut)">مفيش طلبات معلّقة ✅</span>';
-return `<h1>لوحة التحكم</h1><div class="kpis"><div class="kpi"><small>طلبات نشطة</small><b>${D.O.filter(o=>['accepted','received','quoted','paid','progress'].includes(o.status)).length}</b></div><div class="kpi"><small>عمولة المنصة (${D.rate}%)</small><b>${m(com)}</b></div><div class="kpi"><small>أرصدة المهندسين</small><b>${m(owed)}</b></div><div class="kpi"><small>مهندسين معتمدين</small><b>${D.E.filter(x=>x.status=='approved').length}</b></div><div class="kpi"><small>عملاء</small><b>${D.C.length}</b></div></div><div class="card"><h3>بانتظار موافقتك</h3>${pend}</div><div class="card tw"><h3>آخر الطلبات</h3>${otable(D.O.slice(0,6))}</div>`}
-function engs(){const l=D.E.filter(x=>F.e=='all'||x.status==F.e);return `<h1>المهندسين</h1><div class="card">${chips('e',ES)}<div class="tw"><table><tr><th>الاسم</th><th>الموبايل</th><th>الكارنيه</th><th>المدينة</th><th>الرصيد</th><th>الحالة</th></tr>${l.map(x=>`<tr class="cl" onclick="openE('${x.id}')"><td><b>${E(x.full_name)}</b></td><td>${E(x.phone)}</td><td>${E(x.syndicate_no)}</td><td>${E(x.city)}</td><td>${m(x.balance)}</td><td>${tag(ES[x.status])}</td></tr>`).join('')||'<tr><td>لا يوجد</td></tr>'}</table></div></div>`}
-async function doc(p){const w=window.open('','_blank');const{data,error}=await sb.storage.from('docs').createSignedUrl(p,300);if(error){w.close();return alert('تعذر فتح الملف')}w.location=data.signedUrl}
-const docBtn=(p,l)=>p?`<button class="btn gh" onclick="doc('${E(p)}')">${l}</button>`:`<span style="color:var(--mut)">${l}: غير مرفوع</span>`;
-function actions(id,s){return `<div class="acts">${s=='approved'?`<button class="btn bad" onclick="setS('${id}','suspended')">إيقاف</button>`:s=='suspended'?`<button class="btn ok" onclick="setS('${id}','approved')">إعادة تفعيل</button>`:`<button class="btn ok" onclick="setS('${id}','approved')">موافقة</button>${s!='rejected'?`<button class="btn bad" onclick="setS('${id}','rejected')">رفض</button>`:''}`}<button class="btn gh" onclick="cm()">إغلاق</button></div>`}
-function openE(id){const x=D.E.find(e=>e.id==id),done=D.O.filter(o=>o.engineer_id==id&&o.status=='done');
-md(`<h3>${E(x.full_name)}</h3><div class="kv"><span>الموبايل</span><span>${E(x.phone)}</span></div><div class="kv"><span>رقم الكارنيه</span><span>${E(x.syndicate_no)}</span></div><div class="kv"><span>المدينة</span><span>${E(x.city)}</span></div><div class="kv"><span>الرصيد</span><span>${m(x.balance)}</span></div><div class="kv"><span>الحالة</span>${tag(ES[x.status])}</div><div class="acts">${docBtn(x.card_path,'🪪 كارنيه النقابة')}${docBtn(x.cv_path,'📄 CV')}</div>${done.length?`<p style="color:var(--mut)">سيارات أصلحها (${done.length}): ${done.map(o=>E(o.vehicles?.brand+' '+o.vehicles?.model)).join('، ')}</p>`:''}${actions(id,x.status)}`)}
-function custs(){const l=D.C.filter(x=>F.c=='all'||x.status==F.c);return `<h1>العملاء</h1><div class="card">${chips('c',ES)}<div class="tw"><table><tr><th>الاسم</th><th>الموبايل</th><th>المركبات</th><th>الحالة</th></tr>${l.map(x=>`<tr class="cl" onclick="openC('${x.id}')"><td><b>${E(x.full_name)}</b></td><td>${E(x.phone)}</td><td>${x.vehicles.map(v=>E(v.brand+' '+v.model)).join('، ')||'—'}</td><td>${tag(ES[x.status])}</td></tr>`).join('')||'<tr><td>لا يوجد</td></tr>'}</table></div></div>`}
-function openC(id){const x=D.C.find(c=>c.id==id);md(`<h3>${E(x.full_name)}</h3><div class="kv"><span>الموبايل</span><span>${E(x.phone)}</span></div><div class="kv"><span>الحالة</span>${tag(ES[x.status])}</div>${x.vehicles.map(v=>`<div class="kv"><span>${E(v.brand)} ${E(v.model)} ${E(v.year)} • ${E(v.plate)}</span>${docBtn(v.license_path,'🪪 الرخصة')}</div>`).join('')||'<p style="color:var(--mut)">لم يضف مركبة بعد</p>'}${actions(id,x.status)}`)}
-async function setS(id,s){let r=null;if(s=='rejected'){r=prompt('سبب الرفض (يظهر للمستخدم):')||'';}const{error}=await sb.from('profiles').update({status:s,reject_reason:r}).eq('id',id);if(error)return alert(error.message);cm();refresh()}
-function otable(l){return `<table><tr><th>التاريخ</th><th>العميل</th><th>المهندس</th><th>المشكلة</th><th>سعر المهندس</th><th>يدفع العميل</th><th>الحالة</th></tr>${l.map(o=>`<tr class="cl" onclick="openO('${o.id}')"><td>${fd(o.created_at)}</td><td>${E(o.customer?.full_name)}</td><td>${E(o.engineer?.full_name)||'—'}</td><td>${E(o.problem).slice(0,30)}</td><td>${o.price?m(o.price):'—'}</td><td>${o.total?m(o.total):'—'}</td><td>${tag(OS[o.status])}</td></tr>`).join('')}</table>`}
-function ords(){const l=D.O.filter(o=>F.o=='all'||o.status==F.o);return `<h1>الطلبات</h1><div class="card">${chips('o',OS)}<div class="tw">${otable(l)}</div></div>`}
-async function openO(id){const o=D.O.find(x=>x.id==id),{data:ev}=await sb.from('request_events').select('*').eq('request_id',id).order('id');
-md(`<h3>${E(o.problem)}</h3><div class="kv"><span>العميل</span><span>${E(o.customer?.full_name)} • ${E(o.customer?.phone)}</span></div><div class="kv"><span>المركبة</span><span>${E(o.vehicles?.brand)} ${E(o.vehicles?.model)} • ${E(o.vehicles?.plate)}</span></div><div class="kv"><span>المهندس</span><span>${E(o.engineer?.full_name)||'—'}</span></div>${o.odometer?`<div class="kv"><span>العداد</span><span>${o.odometer}</span></div>`:''}${o.price?`<div class="kv"><span>سعر المهندس</span><span>${m(o.price)}</span></div><div class="kv"><span>عمولة المنصة</span><span>${m(o.fee)}</span></div><div class="kv"><b>إجمالي العميل</b><b>${m(o.total)}</b></div>`:''}${o.lat?`<div class="kv"><span>الموقع</span><a href="https://maps.google.com/?q=${o.lat},${o.lng}" target="_blank">فتح الخريطة</a></div>`:''}<h3 style="margin-top:12px">التتبع</h3>${(ev||[]).map(e=>`<div class="kv"><span>${OS[e.status][0]}</span><span>${fd(e.created_at)}</span></div>`).join('')}<div class="acts">${['done','cancelled','declined'].includes(o.status)?'':`<button class="btn bad" onclick="cancelO('${id}')">إلغاء الطلب</button>`}<button class="btn gh" onclick="cm()">إغلاق</button></div>`)}
-async function cancelO(id){if(!confirm('إلغاء الطلب؟'))return;const{error}=await sb.from('requests').update({status:'cancelled'}).eq('id',id);if(error)return alert(error.message);cm();refresh()}
-function fin(){const done=D.O.filter(o=>o.status=='done');return `<h1>المالية</h1><div class="kpis"><div class="kpi"><small>إجمالي المدفوع من العملاء</small><b>${m(done.reduce((a,o)=>a+Number(o.total),0))}</b></div><div class="kpi"><small>أرباح المنصة (طلبات مكتملة)</small><b>${m(done.reduce((a,o)=>a+fee(o),0))}</b></div><div class="kpi"><small>سحب معلّق</small><b>${m(D.W.filter(w=>w.status=='pending').reduce((a,w)=>a+Number(w.amount),0))}</b></div></div><div class="card tw"><h3>طلبات سحب الأرصدة</h3><table><tr><th>المهندس</th><th>المبلغ</th><th>التاريخ</th><th>الحالة</th><th></th></tr>${D.W.map(w=>`<tr><td>${E(w.engineer?.full_name)}</td><td>${m(w.amount)}</td><td>${fd(w.created_at)}</td><td>${tag(w.status=='paid'?['تم التحويل','#16a34a']:['معلّق','#d97706'])}</td><td>${w.status=='pending'?`<button class="btn ok" onclick="pay('${w.id}')">تم التحويل</button>`:''}</td></tr>`).join('')||'<tr><td>لا يوجد</td></tr>'}</table></div><div class="card tw"><h3>أرصدة المهندسين</h3><table><tr><th>المهندس</th><th>الرصيد</th></tr>${D.E.filter(e=>e.status=='approved').map(e=>`<tr><td>${E(e.full_name)}</td><td>${m(e.balance)}</td></tr>`).join('')}</table></div>`}
-async function pay(id){if(!confirm('أكد إنك حوّلت المبلغ للمهندس فعلاً؟'))return;const{error}=await sb.rpc('admin_pay_withdrawal',{wid:id});if(error)return alert(error.message);refresh()}
-function sets(){return `<h1>الإعدادات</h1><div class="card"><h3>عمولة المنصة (% تُضاف فوق سعر المهندس)</h3><input id="rt" type="number" min="0" max="100" value="${D.rate}" style="width:110px"><button class="btn" onclick="saveRate()">حفظ</button><p style="color:var(--mut)">تنطبق على العروض الجديدة فقط. مثال: 1000 ج ← العميل يدفع ${m(1000+1000*D.rate/100)} ← المنصة ${m(1000*D.rate/100)}.</p></div>`}
-async function saveRate(){const v=+$('#rt').value;if(!(v>=0&&v<=100))return alert('نسبة غير صحيحة');const{error}=await sb.from('settings').upsert({key:'commission_rate',value:String(v)});if(error)return alert(error.message);refresh()}
+/* ---------- dashboard ---------- */
+function dash(){const live=['paid','progress','done'];const com=D.O.filter(o=>live.includes(o.status)).reduce((a,o)=>a+fee(o),0),owed=D.E.reduce((a,e)=>a+Number(e.balance),0);
+const pe=D.E.filter(x=>x.status=='pending'),pc=D.C.filter(x=>x.status=='pending'&&x.vehicles.length);
+const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));const k=d.toDateString();return[d.toLocaleDateString('ar-EG',{weekday:'short'}),D.O.filter(o=>live.includes(o.status)&&new Date(o.created_at).toDateString()==k).reduce((a,o)=>a+fee(o),0)]}),mx=Math.max(1,...days.map(x=>x[1]));
+const chart=`<svg viewBox="0 0 350 160" style="width:100%">${days.map((x,i)=>{const h=x[1]/mx*100;return `<rect x="${i*50+8}" y="${125-h}" width="34" height="${Math.max(h,2)}" rx="6" fill="#e8590c"/><text x="${i*50+25}" y="146" text-anchor="middle" font-size="11" fill="#6a7280">${x[0]}</text>${x[1]?`<text x="${i*50+25}" y="${119-h}" text-anchor="middle" font-size="11" fill="#14181f">${x[1]}</text>`:''}`}).join('')}</svg>`;
+const k=(ic,c,l,v)=>`<div class="kpi"><div class="ic" style="--c:${c}">${ic}</div><div><small>${l}</small><b>${v}</b></div></div>`;
+const q=[...pe.map(x=>`<tr class="cl" onclick="openE('${x.id}')"><td>${who(x)}</td><td>مهندس</td><td>${dots(['كارنيه',x.card_path],['CV',x.cv_path])}</td><td><button class="btn gh">مراجعة</button></td></tr>`),...pc.map(x=>`<tr class="cl" onclick="openC('${x.id}')"><td>${who(x)}</td><td>عميل</td><td>${dots(['رخصة',x.vehicles.some(v=>v.license_path)])}</td><td><button class="btn gh">مراجعة</button></td></tr>`)].join('');
+return `<div class="kpis">${k('📝','#d97706','بانتظار المراجعة',pe.length+pc.length)}${k('🔧','#2563eb','طلبات نشطة',D.O.filter(o=>['accepted','received','quoted','paid','progress'].includes(o.status)).length)}${k('💵','#16a34a',`عمولة المنصة (${D.rate}%)`,m(com))}${k('👛','#e8590c','أرصدة المهندسين',m(owed))}${k('🧑‍🔧','#14181f','مهندسين معتمدين',D.E.filter(x=>x.status=='approved').length)}${k('👤','#6a7280','العملاء',D.C.length)}</div>
+<div class="two"><div class="card"><h3>قائمة المراجعة</h3><div class="tw"><table><thead><tr><th>الاسم</th><th>النوع</th><th>المستندات</th><th></th></tr></thead><tbody>${q||'<tr><td colspan="4" class="emp">مفيش طلبات معلّقة ✅</td></tr>'}</tbody></table></div></div><div class="card"><h3>عمولة آخر 7 أيام (ج)</h3>${chart}</div></div>
+<div class="card tw"><h3>آخر الطلبات</h3>${otable(D.O.slice(0,6))}</div>`}
+/* ---------- documents (inline preview) ---------- */
+async function docs(list,bucket='docs'){const out=[];for(const[l,p]of list){if(!p){out.push(`<div class="doc miss"><b>${E(l)}</b><br>لم يتم رفع المستند</div>`);continue}
+ const{data,error}=await sb.storage.from(bucket).createSignedUrl(p,900);const u=data&&data.signedUrl;
+ out.push(`<div class="doc"><div class="dh"><b>${E(l)}</b>${u?`<a href="${E(u)}" target="_blank" rel="noopener">فتح بحجم كامل</a>`:''}</div>${!u?`<div class="emp">تعذر تحميل الملف (${E(error&&error.message)})</div>`:/\.pdf$/i.test(p)?`<iframe src="${E(u)}"></iframe>`:`<img src="${E(u)}" alt="${E(l)}" onclick="window.open(this.src,'_blank')">`}</div>`)}
+ return out.join('')}
 function md(h){$('#ov').innerHTML=`<div class="ov" onclick="if(event.target==this)cm()"><div class="md">${h}</div></div>`}
-function cm(){$('#ov').innerHTML=''}
-setInterval(()=>{if(ME&&!$('#ov').innerHTML)refresh()},30000);
+const cm=()=>{$('#ov').innerHTML=''};
+document.addEventListener('keydown',e=>{if(e.key=='Escape')cm()});
+const mh=t=>`<div class="mh"><h3>${t}</h3><button class="x" onclick="cm()">✕</button></div>`;
+function actions(id,s){const b=(c,l,st)=>`<button class="btn ${c}" onclick="setS('${id}','${st}')">${l}</button>`;
+ const main=s=='approved'?b('bad','إيقاف الحساب','suspended'):s=='suspended'?b('ok','تفعيل الحساب','approved'):s=='deleted'?'<span style="color:var(--mut)">حساب محذوف</span>':b('ok','موافقة واعتماد','approved')+(s!='rejected'?`<button class="btn bad" onclick="askReject('${id}')">رفض</button>`:'');
+ return `<div id="acts"><div class="acts">${main}</div></div>`}
+const danger=(id,s)=>s=='deleted'?'':`<div class="danger"><div class="dt" style="color:var(--bad)">منطقة الخطر</div><div id="del"><button class="btn gh" style="color:var(--bad);border-color:var(--bad)" onclick="askDel('${id}')">حذف الحساب</button></div></div>`;
+function askDel(id){const x=D.E.find(e=>e.id==id)||D.C.find(c=>c.id==id);$('#del').innerHTML=`<p style="color:var(--bad);margin:8px 0">هتحذف حساب <b>${E(x.full_name)}</b>. لو عنده سجل طلبات أو فلوس هيتأرشف ويتمنع من الدخول بدل الحذف النهائي. اكتب <b>حذف</b> للتأكيد:</p><input id="dc" placeholder="حذف" style="width:100%"><div class="acts"><button class="btn bad" onclick="delAcc('${id}')">تأكيد الحذف</button><button class="btn gh" onclick="cm()">إلغاء</button></div>`}
+async function delAcc(id){if($('#dc').value.trim()!=='حذف')return toast('اكتب كلمة حذف للتأكيد',1);const{data,error}=await sb.rpc('admin_delete_account',{uid:id});if(error)return toast(error.message,1);cm();await load();render();toast(data=='deleted'?'تم حذف الحساب نهائياً':'الحساب عنده سجل، اتأرشف واتمنع من الدخول')}
+function askReject(id){$('#acts').innerHTML=`<textarea id="rr" placeholder="سبب الرفض (هيظهر للمستخدم)"></textarea><div class="acts"><button class="btn bad" onclick="setS('${id}','rejected',$('#rr').value.trim())">تأكيد الرفض</button><button class="btn gh" onclick="cm()">إلغاء</button></div>`}
+async function setS(id,s,reason){if(s=='rejected'&&!reason)return toast('اكتب سبب الرفض',1);const{error}=await sb.from('profiles').update({status:s,reject_reason:s=='rejected'?reason:null}).eq('id',id);if(error)return toast(error.message,1);cm();await load();render();toast('تم الحفظ')}
+const info=(x,extra='')=>`<div class="pi"><div class="av lg">${E((x.full_name||'?').trim().charAt(0))}</div><h3 style="margin:0 0 6px">${E(x.full_name)}</h3>${tag(ES[x.status])}</div><div class="kv"><span>الموبايل</span><span>${phone(x)}</span></div><div class="kv"><span>المدينة</span><span>${E(x.city)||'—'}</span></div>${extra}<div class="kv"><span>تاريخ التسجيل</span><span>${fdd(x.created_at)}</span></div>${x.reject_reason?`<div class="kv"><span>سبب الرفض</span><span>${E(x.reject_reason)}</span></div>`:''}`;
+/* ---------- engineers ---------- */
+function engs(){const l=D.E.filter(x=>(F.e=='all'?x.status!='deleted':x.status==F.e)&&match(x,x.full_name,x.phone,x.city,x.syndicate_no));
+return `<div class="card">${chips('e',ES,D.E,'status')}<div class="tw"><table><thead><tr><th>المهندس</th><th>الموبايل</th><th>رقم الكارنيه</th><th>المستندات</th><th>محفظة الأرباح</th><th>التقييم</th><th>الرصيد</th><th>التسجيل</th><th>الحالة</th></tr></thead><tbody>${l.map(x=>`<tr class="cl" onclick="openE('${x.id}')"><td>${who(x)}</td><td>${phone(x)}</td><td>${E(x.syndicate_no)||'—'}</td><td>${dots(['كارنيه',x.card_path],['CV',x.cv_path])}</td><td>${pm(x)}</td><td>${rate(x)}</td><td${Number(x.balance)<0?' style="color:var(--bad);font-weight:700"':''}>${m(x.balance)}</td><td>${fdd(x.created_at)}</td><td>${tag(ES[x.status])}</td></tr>`).join('')||empty}</tbody></table></div></div>`}
+async function openE(id){const x=D.E.find(e=>e.id==id);md(mh('مراجعة مهندس')+'<div class="load">جاري تحميل المستندات...</div>');
+ const dc=await docs([['كارنيه النقابة',x.card_path],['السيرة الذاتية (CV)',x.cv_path]]);const done=D.O.filter(o=>o.engineer_id==id&&o.status=='done');
+ md(mh('مراجعة مهندس')+`<div class="pane"><div>${info(x,`<div class="kv"><span>رقم الكارنيه</span><span><b>${E(x.syndicate_no)||'—'}</b></span></div><div class="kv"><span>محفظة الأرباح</span><span>${x.pay_method?PM[x.pay_method]:'لم تُربط'}</span></div>${x.pay_method?`<div class="kv"><span>الحساب / الرقم</span><span class="ph"><b>${E(x.pay_account)}</b></span></div>${x.pay_bank?`<div class="kv"><span>البنك</span><span>${E(x.pay_bank)}</span></div>`:''}${x.pay_holder?`<div class="kv"><span>اسم صاحب الحساب</span><span>${E(x.pay_holder)}</span></div>`:''}`:''}<div class="kv"><span>الرصيد</span><span>${m(x.balance)}</span></div><div class="kv"><span>التقييم</span><span>${rate(x)}</span></div><div class="kv"><span>سيارات تم إصلاحها</span><span>${done.length}</span></div>`)}${actions(id,x.status)}<div class="dt" style="margin-top:18px">الرصيد والخصومات</div><div class="acts" style="margin-top:6px"><button class="btn bad" onclick="askAdj('${id}',-1)">خصم من الرصيد</button><button class="btn gh" onclick="askAdj('${id}',1)">إضافة للرصيد</button></div><div id="adj"></div>${D.A.filter(a=>a.engineer_id==id).map(a=>`<div class="kv"><span>${fdd(a.created_at)} — ${E(a.reason)}</span><b style="color:${a.amount<0?'var(--bad)':'var(--ok)'}">${a.amount<0?'−':'+'}${m(Math.abs(a.amount))}</b></div>`).join('')}${danger(id,x.status)}</div><div><div class="dt">المستندات المرفوعة</div>${dc}</div></div>`)}
+/* ---------- customers ---------- */
+function custs(){const l=D.C.filter(x=>(F.c=='all'?x.status!='deleted':x.status==F.c)&&match(x,x.full_name,x.phone,x.city));
+return `<div class="card">${chips('c',ES,D.C,'status')}<div class="tw"><table><thead><tr><th>العميل</th><th>الموبايل</th><th>المركبات</th><th>الرخصة</th><th>التسجيل</th><th>الحالة</th></tr></thead><tbody>${l.map(x=>`<tr class="cl" onclick="openC('${x.id}')"><td>${who(x)}</td><td>${phone(x)}</td><td>${x.vehicles.map(v=>E(v.brand+' '+v.model)).join('، ')||'—'}</td><td>${dots(['رخصة',x.vehicles.some(v=>v.license_path)])}</td><td>${fdd(x.created_at)}</td><td>${tag(ES[x.status])}</td></tr>`).join('')||empty}</tbody></table></div></div>`}
+async function openC(id){const x=D.C.find(c=>c.id==id);md(mh('مراجعة عميل')+'<div class="load">جاري تحميل المستندات...</div>');
+ const dc=x.vehicles.length?await docs(x.vehicles.map(v=>[`رخصة ${v.brand} ${v.model} ${v.year||''} (${v.plate||'بدون لوحة'})`,v.license_path])):'<div class="doc miss">لم يضف مركبة بعد</div>';
+ const pays=D.P.filter(p=>p.customer_id==id);
+ const rc=pays.length?await docs(pays.map(p=>[`إيصال ${PM[p.method]} - ${m(p.amount)} (${PS[p.status][0]})`,p.receipt_path]),'receipts'):'<div class="doc miss">لا توجد مدفوعات</div>';
+ const pinfo=pays.length?pays.map(p=>`<div class="kv"><span>${PM[p.method]}</span><span class="ph">${E(p.sender_account)||'—'}</span></div>`).join(''):'<div class="kv"><span>طريقة الدفع</span><span>لم يدفع بعد</span></div>';
+ md(mh('مراجعة عميل')+`<div class="pane"><div>${info(x,x.vehicles.map(v=>`<div class="kv"><span>${E(v.brand)} ${E(v.model)}</span><span>${E(v.plate)||'—'}</span></div>`).join('')+'<div class="dt" style="margin-top:12px">طرق الدفع المستخدمة</div>'+pinfo)}${actions(id,x.status)}${danger(id,x.status)}</div><div><div class="dt">رخص المركبات</div>${dc}<div class="dt" style="margin-top:8px">إيصالات الدفع</div>${rc}</div></div>`)}
+/* ---------- orders ---------- */
+function otable(l){return `<table><thead><tr><th>التاريخ</th><th>العميل</th><th>المهندس</th><th>المشكلة</th><th>سعر المهندس</th><th>يدفع العميل</th><th>الحالة</th></tr></thead><tbody>${l.map(o=>`<tr class="cl" onclick="openO('${o.id}')"><td>${fdd(o.created_at)}</td><td>${E(o.customer?.full_name)}</td><td>${E(o.engineer?.full_name)||'—'}</td><td>${E(o.problem).slice(0,32)}</td><td>${o.price?m(o.price):'—'}</td><td>${o.total?m(o.total):'—'}</td><td>${tag(OS[o.status])}</td></tr>`).join('')||empty}</tbody></table>`}
+function ords(){const l=D.O.filter(o=>(F.o=='all'||o.status==F.o)&&match(o,o.problem,o.customer?.full_name,o.engineer?.full_name));return `<div class="card">${chips('o',OS,D.O,'status')}<div class="tw">${otable(l)}</div></div>`}
+async function openO(id){const o=D.O.find(x=>x.id==id);const[{data:ev},{data:jc}]=await Promise.all([sb.from('request_events').select('*').eq('request_id',id).order('id'),sb.from('job_cards').select('*').eq('request_id',id).maybeSingle()]);
+ const items=(jc?.data?.items||[]).map((i,n)=>`<tr><td>${n+1}</td><td>${E(i.desc)}</td><td>${m(i.amount)}</td><td>${E(i.dept)}</td><td>${E(i.tech)}</td></tr>`).join('');
+ md(mh('تفاصيل الطلب')+`<div class="pane"><div><div class="kv"><span>المشكلة</span><span>${E(o.problem)}</span></div><div class="kv"><span>العميل</span><span>${E(o.customer?.full_name)}</span></div><div class="kv"><span>موبايل العميل</span><span>${E(o.customer?.phone)}</span></div><div class="kv"><span>المركبة</span><span>${E(o.vehicles?.brand)} ${E(o.vehicles?.model)}</span></div><div class="kv"><span>المهندس</span><span>${E(o.engineer?.full_name)||'—'}</span></div>${o.odometer?`<div class="kv"><span>العداد</span><span>${o.odometer}</span></div>`:''}${o.price?`<div class="kv"><span>سعر المهندس</span><span>${m(o.price)}</span></div><div class="kv"><span>عمولة المنصة</span><span>${m(o.fee)}</span></div><div class="kv"><b>إجمالي العميل</b><b>${m(o.total)}</b></div>`:''}${o.lat?`<div class="kv"><span>الموقع</span><a href="https://maps.google.com/?q=${o.lat},${o.lng}" target="_blank" rel="noopener">فتح الخريطة</a></div>`:''}<div class="acts">${['done','cancelled','declined','delivered'].includes(o.status)?'':`<button class="btn bad" onclick="cancelO('${id}')">إلغاء الطلب</button>`}${o.status=='delivered'?`<button class="btn gh" onclick="forceDone('${id}')">إنهاء بدون تقييم</button>`:''}</div></div>
+<div>${ratingBlock(o)}<div class="dt">التتبع</div>${(ev||[]).map(e=>`<div class="kv"><span>${OS[e.status][0]}</span><span>${fd(e.created_at)}</span></div>`).join('')}${jc?`<div class="dt" style="margin-top:16px">كارت التشغيل رقم ${jc.card_no}</div><div class="tw"><table><thead><tr><th>م</th><th>البند</th><th>المبلغ</th><th>القسم</th><th>الفني</th></tr></thead><tbody>${items}</tbody></table></div><div class="kv"><b>الإجمالي</b><b>${m(jc.total)}</b></div>`:''}</div></div>`)}
+const ratingBlock=o=>{const r=D.R.find(x=>x.request_id==o.id);return r?`<div class="card" style="padding:14px"><div class="dt">تقييم العميل للمهندس</div><div style="font-size:22px">${starsTxt(r.stars)}</div>${r.comment?`<p style="margin:6px 0 0">${E(r.comment)}</p>`:''}</div>`:(o.status=='delivered'?'<div class="card" style="padding:14px;background:#fffbeb"><b>بانتظار تقييم العميل</b><br><span style="color:var(--mut)">فلوس المهندس هتنزل في رصيده بعد التقييم.</span></div>':'')};
+async function forceDone(id){if(!confirm('إنهاء الطلب بدون تقييم؟ هتتضاف فلوس المهندس لرصيده.'))return;const{error}=await sb.rpc('admin_force_complete',{rid:id});if(error)return toast(error.message,1);cm();await load();render();toast('تم إنهاء الطلب')}
+function askAdj(id,sign){$('#adj').innerHTML=`<input id="aa" type="number" min="1" step="1" placeholder="المبلغ بالجنيه" style="width:100%;margin-top:10px"><textarea id="ar" placeholder="${sign<0?'سبب الخصم (هيظهر للمهندس)':'سبب الإضافة (هيظهر للمهندس)'}"></textarea><div class="acts"><button class="btn ${sign<0?'bad':'ok'}" onclick="doAdj('${id}',${sign})">${sign<0?'تأكيد الخصم':'تأكيد الإضافة'}</button></div>`}
+async function doAdj(id,sign){const a=Math.abs(+$('#aa').value),r=$('#ar').value.trim();if(!(a>0))return toast('اكتب مبلغ صحيح',1);if(r.length<3)return toast('اكتب السبب',1);const x=D.E.find(e=>e.id==id);if(!confirm((sign<0?'خصم ':'إضافة ')+m(a)+(sign<0?' من رصيد ':' إلى رصيد ')+x.full_name+'؟'))return;const{error}=await sb.rpc('admin_adjust_balance',{eid:id,amt:sign*a,reason:r});if(error)return toast(error.message,1);await load();render();openE(id);toast(sign<0?'تم الخصم':'تمت الإضافة')}
+async function cancelO(id){if(!confirm('إلغاء الطلب؟'))return;const{error}=await sb.from('requests').update({status:'cancelled'}).eq('id',id);if(error)return toast(error.message,1);cm();await load();render();toast('تم إلغاء الطلب')}
+/* ---------- payments ---------- */
+function pays(){const l=D.P.filter(p=>(F.p=='all'||p.status==F.p)&&match(p,p.customer?.full_name,p.sender_account,p.request?.problem));
+return `<div class="card">${chips('p',PS,D.P,'status')}<div class="tw"><table><thead><tr><th>العميل</th><th>الطلب</th><th>الطريقة</th><th>حساب المحوِّل</th><th>المبلغ</th><th>التاريخ</th><th>الحالة</th></tr></thead><tbody>${l.map(p=>`<tr class="cl" onclick="openP('${p.id}')"><td><b>${E(p.customer?.full_name)}</b></td><td>${E(p.request?.problem).slice(0,28)}</td><td>${PM[p.method]}</td><td><span class="ph">${E(p.sender_account)||'—'}</span></td><td>${m(p.amount)}</td><td>${fd(p.created_at)}</td><td>${tag(PS[p.status])}</td></tr>`).join('')||empty}</tbody></table></div></div>`}
+async function openP(id){const p=D.P.find(x=>x.id==id);md(mh('مراجعة إيصال دفع')+'<div class="load">جاري تحميل الإيصال...</div>');
+ const rc=await docs([['إيصال الدفع',p.receipt_path]],'receipts');
+ md(mh('مراجعة إيصال دفع')+`<div class="pane"><div><div class="kv"><span>العميل</span><span>${E(p.customer?.full_name)}</span></div><div class="kv"><span>موبايل العميل</span><span class="ph">${E(p.customer?.phone)}</span></div><div class="kv"><span>الطلب</span><span>${E(p.request?.problem)}</span></div><div class="kv"><span>طريقة الدفع</span><span><b>${PM[p.method]}</b></span></div><div class="kv"><span>حساب المحوِّل</span><span class="ph">${E(p.sender_account)||'—'}</span></div><div class="kv"><span>المبلغ المطلوب</span><span><b>${m(p.amount)}</b></span></div><div class="kv"><span>الحالة</span>${tag(PS[p.status])}</div>${p.reject_reason?`<div class="kv"><span>سبب الرفض</span><span>${E(p.reject_reason)}</span></div>`:''}
+${p.status=='pending'?`<div id="acts"><div class="acts"><button class="btn ok" onclick="reviewPay('${id}',true)">تأكيد الدفع</button><button class="btn bad" onclick="askPayReject('${id}')">رفض الإيصال</button></div></div>`:''}</div><div><div class="dt">صورة الإيصال (تظهر للأدمن فقط)</div>${rc}</div></div>`)}
+function askPayReject(id){$('#acts').innerHTML=`<textarea id="rr" placeholder="سبب الرفض (هيظهر للعميل)"></textarea><div class="acts"><button class="btn bad" onclick="reviewPay('${id}',false,$('#rr').value.trim())">تأكيد الرفض</button><button class="btn gh" onclick="cm()">إلغاء</button></div>`}
+async function reviewPay(id,ok,reason){if(!ok&&!reason)return toast('اكتب سبب الرفض',1);const{error}=await sb.rpc('admin_review_payment',{pid:id,ok,reason:reason||null});if(error)return toast(error.message,1);cm();await load();render();toast(ok?'تم تأكيد الدفع':'تم رفض الإيصال')}
+/* ---------- finance / settings ---------- */
+function fin(){const done=D.O.filter(o=>o.status=='done');const k=(l,v)=>`<div class="kpi"><div><small>${l}</small><b>${v}</b></div></div>`;
+return `<div class="kpis">${k('إجمالي المدفوع من العملاء',m(done.reduce((a,o)=>a+Number(o.total),0)))}${k('أرباح المنصة (طلبات مكتملة)',m(done.reduce((a,o)=>a+fee(o),0)))}${k('سحب معلّق',m(D.W.filter(w=>w.status=='pending').reduce((a,w)=>a+Number(w.amount),0)))}</div>
+<div class="card tw"><h3>طلبات سحب الأرصدة</h3><table><thead><tr><th>المهندس</th><th>المبلغ</th><th>التاريخ</th><th>الحالة</th><th></th></tr></thead><tbody>${D.W.map(w=>`<tr><td>${E(w.engineer?.full_name)}</td><td>${m(w.amount)}</td><td>${fd(w.created_at)}</td><td>${tag(w.status=='paid'?['تم التحويل','#16a34a']:['معلّق','#d97706'])}</td><td>${w.status=='pending'?`<button class="btn ok" onclick="pay('${w.id}')">تم التحويل</button>`:''}</td></tr>`).join('')||empty}</tbody></table></div>
+<div class="card tw"><h3>أرصدة المهندسين</h3><table><thead><tr><th>المهندس</th><th>الموبايل</th><th>الرصيد</th></tr></thead><tbody>${D.E.filter(e=>e.status=='approved').map(e=>`<tr><td>${who(e)}</td><td>${phone(e)}</td><td>${m(e.balance)}</td></tr>`).join('')||empty}</tbody></table></div>`}
+async function pay(id){if(!confirm('أكد إنك حوّلت المبلغ للمهندس فعلاً؟'))return;const{error}=await sb.rpc('admin_pay_withdrawal',{wid:id});if(error)return toast(error.message,1);await load();render();toast('تم تسجيل التحويل')}
+function sets(){const S=D.S,inp=(k,l,ph,num)=>`<label class="lb">${l}</label><input id="st_${k}" value="${E(S[k]||'')}" placeholder="${ph||''}" ${num?`inputmode="numeric" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,11)"`:''}>`;
+return `<div class="two"><div class="card"><h3>عمولة المنصة</h3><p style="color:var(--mut);margin-top:0">نسبة % بتتضاف فوق سعر المهندس، وتنطبق على العروض الجديدة فقط.</p><div class="bar"><input id="rt" type="number" min="0" max="100" value="${D.rate}" style="width:110px"><button class="btn" onclick="saveRate()">حفظ</button></div><p style="color:var(--mut)">مثال: 1000 ج ← العميل يدفع ${m(1000+1000*D.rate/100)} ← المهندس يستلم 1000 ج ← المنصة ${m(1000*D.rate/100)}.</p></div>
+<div class="card"><h3>حسابات استلام الدفع (بتظهر للعميل)</h3>${inp('pay_instapay','رقم إنستا باي','01xxxxxxxxx',1)}${inp('pay_vodafone','رقم فودافون كاش','010xxxxxxxx',1)}${inp('pay_bank_name','اسم البنك','')}${inp('pay_bank_account','رقم الحساب / IBAN','')}${inp('pay_bank_holder','اسم صاحب الحساب البنكي','')}${inp('support_phone','رقم خدمة العملاء','01xxxxxxxxx',1)}<div class="acts"><button class="btn" onclick="savePay()">حفظ الحسابات</button></div><p style="color:var(--mut);font-size:12px">لو سبت بيانات البنك فاضية، خيار التحويل البنكي مش هيشتغل عند العميل.</p></div></div>`}
+async function saveRate(){const v=+$('#rt').value;if(!(v>=0&&v<=100))return toast('نسبة غير صحيحة',1);const{error}=await sb.from('settings').upsert({key:'commission_rate',value:String(v)});if(error)return toast(error.message,1);await load();render();toast('تم حفظ العمولة')}
+async function savePay(){const ks=['pay_instapay','pay_vodafone','pay_bank_name','pay_bank_account','pay_bank_holder','support_phone'];const rows=ks.map(k=>({key:k,value:($('#st_'+k).value||'').trim()}));
+ const bad=rows.find(r=>['pay_instapay','pay_vodafone','support_phone'].includes(r.key)&&r.value&&!/^01[0-9]{9}$/.test(r.value));if(bad)return toast('الأرقام لازم تكون 11 رقم',1);
+ const{error}=await sb.from('settings').upsert(rows);if(error)return toast(error.message,1);await load();render();toast('تم حفظ حسابات الدفع')}
+setInterval(()=>{if(ME&&!$('#ov').innerHTML&&!document.activeElement?.matches('input,textarea')){load().then(rerender)}},30000);
 boot();
 </script>
 </body>
